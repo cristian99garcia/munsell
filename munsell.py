@@ -158,7 +158,9 @@ class HueGrid(Gtk.Grid):
         Gtk.Grid.__init__(self)
 
         self.items = []
+        self.colors = []
         self.palette = 0
+        self.set_size_request(20*15, 20*11)
 
         self.set_hexpand(False)
         self.set_vexpand(False)
@@ -178,25 +180,27 @@ class HueGrid(Gtk.Grid):
         end = 165 * (color_index + 1)
         colors = MUNSELL[start:end]
 
-        x = 0
-        y = 0
-        idx = 0
+        x = -1
+        y = 10
+        idx = -1
         for color in colors:
+            x += 1
+            if x >= 15:
+                x = 0
+                y -= 1
+
+            idx += 1
+
+            if color in self.colors:
+                continue
+
             item = MunsellColorItem(color, idx)
             item.set_size_request(20, 20)
-            item.set_hexpand(True)
-            item.set_vexpand(True)
             item.connect("clicked", self.__item_clicked_cb)
             self.attach(item, x, y, 1, 1)
 
             self.items.append(item)
-
-            x += 1
-            if x >= 15:
-                x = 0
-                y += 1
-
-            idx += 1
+            self.colors.append(color)
 
         self.show_all()
 
@@ -206,6 +210,9 @@ class HueGrid(Gtk.Grid):
             self.remove(item)
             self.items.remove(item)
             del item
+
+        del self.colors
+        self.colors = []
 
 
 class MunsellColorPicker(Gtk.Grid):
