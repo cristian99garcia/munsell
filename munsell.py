@@ -226,6 +226,7 @@ class MunsellColorPicker(Gtk.Grid):
 
         self.set_border_width(2)
         self.set_column_spacing(5)
+        self.color = COLORS40[0][2]
 
         self.wheel = ColorWheel()
         self.wheel.connect("selected", self.__wheel_selected_cb)
@@ -236,10 +237,15 @@ class MunsellColorPicker(Gtk.Grid):
         self.attach(self.grid, 1, 0, 1, 1)
 
     def __wheel_selected_cb(self, widget, idx):
+        self.color = COLORS40[0][2]
         self.grid.set_color(idx)
 
     def __color_selected_cb(self, widget, color):
+        self.color = color
         self.emit("selected", color)
+
+    def get_color(self):
+        return self.color
 
 
 if __name__ == "__main__":

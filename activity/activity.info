@@ -1,0 +1,7 @@
+[Activity]
+name = Munsell Color Picker
+exec = sugar-activity MunsellActivity.MunsellActivity
+bundle_id = org.laptop.MunsellActivity
+icon = munsell-icon
+activity_version = 1
+license = GPLv3
