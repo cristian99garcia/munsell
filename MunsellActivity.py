@@ -37,11 +37,8 @@ from sugar3.graphics.toolbarbox import ToolbarBox
 from sugar3.activity.widgets import ActivityToolbarButton
 from sugar3.activity.widgets import StopButton
 from sugar3.graphics.toolbutton import ToolButton
-from sugar3.graphics.objectchooser import ObjectChooser
-from sugar3.graphics.colorbutton import ColorToolButton
 from sugar3.graphics.alert import ConfirmationAlert
 from sugar3.graphics.alert import NotifyAlert
-from sugar3.graphics.xocolor import colors
 
 from gettext import gettext as _
 
@@ -50,9 +47,6 @@ class MunsellActivity(activity.Activity):
 
     def __init__(self, handle):
         activity.Activity.__init__(self, handle)
-
-        self.nick = profile.get_nick_name()
-        self.client = GConf.Client.get_default()
 
         if profile.get_color() is not None:
             self.colors = profile.get_color().to_string().split(",")
@@ -131,7 +125,8 @@ class MunsellActivity(activity.Activity):
         color1 = self.picker1.get_color().upper()
         color2 = self.picker2.get_color().upper()
 
-        self.client.set_string("/desktop/sugar/user/color", "%s,%s" % (color1, color2))
+        client = GConf.Client.get_default()
+        client.set_string("/desktop/sugar/user/color", "%s,%s" % (color1, color2))
 
         alert = NotifyAlert()
         alert.props.title = _('Saving colors')
