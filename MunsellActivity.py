@@ -122,8 +122,8 @@ class MunsellActivity(activity.Activity):
         self.remove_alert(alert)
 
     def _confirm_save(self):
-        color1 = self.picker1.get_color().upper()
-        color2 = self.picker2.get_color().upper()
+        color1 = self.colors[0].upper()
+        color2 = self.colors[1].upper()
 
         settings = Gio.Settings("org.sugarlabs.user")
         settings.set_string("color", "%s,%s" % (color1, color2))
