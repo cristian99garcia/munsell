@@ -28,7 +28,7 @@ gi.require_version("Gtk", "3.0")
 
 from gi.repository import Gtk
 from gi.repository import Gdk
-from gi.repository import GConf
+from gi.repository import Gio
 from gi.repository import GdkPixbuf
 
 from sugar3 import profile
@@ -125,8 +125,8 @@ class MunsellActivity(activity.Activity):
         color1 = self.picker1.get_color().upper()
         color2 = self.picker2.get_color().upper()
 
-        client = GConf.Client.get_default()
-        client.set_string("/desktop/sugar/user/color", "%s,%s" % (color1, color2))
+        settings = Gio.Settings("org.sugarlabs.user")
+        settings.set_string("color", "%s,%s" % (color1, color2))
 
         alert = NotifyAlert()
         alert.props.title = _('Saving colors')
