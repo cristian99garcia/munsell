@@ -55,8 +55,11 @@ class MunsellActivity(activity.Activity):
 
         self.make_toolbar()
 
+        scroll = Gtk.ScrolledWindow()
+        self.set_canvas(scroll)
+
         self.vbox = Gtk.VBox()
-        self.set_canvas(self.vbox)
+        scroll.add(self.vbox)
 
         self.image = Gtk.Image()
         self.vbox.pack_start(self.image, True, True, 0)
